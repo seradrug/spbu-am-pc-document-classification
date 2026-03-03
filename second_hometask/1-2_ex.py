@@ -69,3 +69,4 @@ vec = CountVectorizer(binary=True, tokenizer=lemma, lowercase=False, token_patte
 X = vec.fit_transform(f10_text)
 l1 = f11_text.apply(lemma)
 print(X.toarray())
+print(l, l1)
