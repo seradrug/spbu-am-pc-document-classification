@@ -1,4 +1,5 @@
 import nltk 
+from sklearn.feature_extraction.text import CountVectorizer 
 import pandas as pd 
 import string 
 from datasets import load_dataset 
@@ -64,5 +65,7 @@ def lemma(text):
     return clean
 
 l = f10_text.apply(lemma)
+vec = CountVectorizer(binary=True, tokenizer=lemma, lowercase=False, token_pattern=None)
+X = vec.fit_transform(f10_text)
 l1 = f11_text.apply(lemma)
-print(l, l1)
+print(X.toarray())
