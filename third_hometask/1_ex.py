@@ -68,7 +68,7 @@ def keep(exp):
 data1 = ds["train"].to_pandas()
 data2 = df["train"].to_pandas()
 
-data1 = data1.head(10)
+data1 = data1.head(30)
 data2 = data2.head(30)
 
 data1 = data1["text"]
@@ -102,13 +102,15 @@ def lemma(text):
     tokens = nltk.word_tokenize(text)
     pos_tags = nltk.pos_tag(tokens)
     lemmatizer = nltk.WordNetLemmatizer()
+    remove_pos = {"NN", "NNS", "NNP", "NNPS", "JJ", "JJR", "JJS"}
 
-    lemmatized_tokens = [lemmatizer.lemmatize(token, get_wordnet_pos(pos)) for token, pos in pos_tags if token not in string.punctuation]
+    lemmatized_tokens = [lemmatizer.lemmatize(token, get_wordnet_pos(pos)) for token, pos in pos_tags if pos not in remove_pos and token not in string.punctuation]
 
     clean = [
         token for token in lemmatized_tokens if token not in stop_words]
 
     return clean
-
+print(top_tokens(data2, 30))
 l = data2.apply(lemma)
 print(top_tokens(l, 30))
+print(l)
